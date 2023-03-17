@@ -14,7 +14,8 @@ typedef struct {
 	int idade;
 	float peso;
 	float altura;
-	float imc;
+	float imc, nota1, nota2, media;
+
 	
 	
 }cadastro;
@@ -22,6 +23,28 @@ int continuar;
 int opcao, opcao2;
 cadastro usuario1;
 
+void cadastrar();
+void retornar();
+void menu();
+void exibir();
+void imc ();
+void media();
+void refaz();
+
+
+int main (){
+    setlocale(LC_ALL,"Portuguese");
+  
+  
+  printf("\n\t\t\tDigite 1 Para cadastrar um NOVO usuario.\t\t\n");
+  printf("\n\t\t\tDigite 2 para usuario JÀ cadastrado\t\t\n");
+  scanf("\t\t\t%d",&opcao2);
+  
+  refaz();
+  return 0;
+  
+ 
+}
 void cadastrar(){
 		printf("\t************* Cadastro de novo usuario \t*************\n");
  	 	printf("Primeiro Nome: ");
@@ -65,22 +88,24 @@ void cadastrar(){
 			   	printf("Sexo: Feminino\n");
 			   }
 }
-void retornar(){
 
+void retornar(){
 	 if (opcao != 0) {
             printf("\n\n Deseja retornar ao menu ?\n\n Digite 1 para confirmar");
             scanf(" %d", &continuar);
             system("cls");
             void menu();
 		}
-	 if (continuar == '1'){
+	 while (continuar == '1'){
 	 	printf("Voltando ao menu");
 	 	sleep(1);
-        void menu();
-	
-}}
+          void menu();	
+}
+}
 void menu(){
+
 	system("cls");
+	do{
 	
 	printf ("\n\n\t\t\t\t\t\tDigite o serviço desejado: \t\t\t\t\t\n");
   
@@ -88,13 +113,55 @@ void menu(){
   	printf("\n\t\t\t\t\t2-Para IMC: \t\t\t\t\t\n");
   	printf("\n\t\t\t\t\t3-Média Aluno: \t\t\t\t\n");
   	printf("\n\t\t\t\t\t4-Calculadora: \t\t\t\t\n");
+  	printf("\n\t\t\t\t\t5-Sair: \t\t\t\t\t\n");
   	scanf("%d",&opcao);
+  	switch (opcao)
+{ 
+case 1:
+		system("cls");
+    printf("Dados cadastrais do usuário:");
+    exibir();
+    system("pause");
+    system("cls");
+	menu();
+  break;
+
+case 2:
+		system("cls");
+      printf ("\n\t\t\tCalculo de IMC:\n\t\t\t");
+      imc();    
+	  sleep(1);
+	  system("pause");
+	  menu();
+break;  
+    case 3:
+	    system("cls");
+	    media();
+		system("pause");
+		menu();
+      break;
+      
+    case 4:
+      printf ("");
+      
+      
+      break;
+    case 5:
+    	printf("Saindo...");
+    	sleep(1);
+    	break;
+   	
+    default:
+      printf ("Digite um numero entre 1 e 5!");
+      break; 
+	}} while(opcao!= 5);
+
+  	
   
 
-}
-
-
+};
 void exibir(){
+	
  printf("\n\n**********\tDADOS CADASTRAIS\t**********\n");
      printf("Nome completo: %s %s \nEmail: %s \nIdade: %d\nPeso: %2.2f Kg \nAltura: \%2.2fM\n", usuario1.nome, usuario1.sobrenome, usuario1.email, usuario1.idade, usuario1.peso, usuario1.altura); 
 	
@@ -105,9 +172,9 @@ void imc (){
 }
 void refaz(){
 	
-		 switch(opcao2){
+    switch(opcao2){
   
-  case 1:
+    case 1:
   	cadastrar();
   	system("cls");
   	printf("************ USUARIO CADASTRADO COM SUCESSO ****************");
@@ -115,72 +182,37 @@ void refaz(){
 	
 
 break;
-		case 2:
-		{ printf("Usuario Cadastrado:");
-			printf("\n\nUsuario não encontrado.");
-			sleep(1);
-			system("cls");}
-			break;}
-			
-	retornar();
-    menu();
-	sleep(1);
-switch (opcao)
-{ 
-case 1:
-    printf("Dados cadastrais do usuário:");
-    exibir();
- 
-    system("pause");
-    system("cls");
-    retornar();
+		case 2:		
+		 printf("Usuario Cadastrado:");
+		 printf("\n\nUsuario não encontrado.");
+		 sleep(1);
+		 system("cls");
+break;}
 	menu();
- 
-     
-break;
-    
-case 2:
-      printf ("\n\t\t\tCalculo de IMC:\n\t\t\t");
-      
-      imc();
-      
-	  sleep(1);
-	  system("pause");
-	  retornar();
-	  menu();
-	  
-	   
-break;
-      
-    
-    case 3:
-      printf ("");
-      break;
-    case 4:
-      printf ("");
-      break;
-    case 0:
-    	continuar ='n';
-    	break;
-   
-    default:
-      printf ("Digite um numero entre 1 e 4!");
-      break;
-      retornar();
-      menu(); 
-	}
+	sleep(1);
 }
-int main (){
-    setlocale(LC_ALL,"Portuguese");
-  
-  
-  printf("\n\t\t\tDigite 1 Para cadastrar um NOVO usuario.\t\t\n");
-  printf("\n\t\t\tDigite 2 para usuario JÀ cadastrado\t\t\n");
-  scanf("\t\t\t%d",&opcao2);
-  
-  refaz();
-  
- 
+void media(){
+		system("cls");
+      printf ("\t\tCalculo de média: \n");
+      if(usuario1.sexo ==1){
+      	printf("Olá Sr %s\n",usuario1.nome);
+	  }else{
+	  	printf("Olá Sra %s\n",usuario1.nome);
+	  }
+	  printf("\nPara calcular a sua média, precisamos de alguns dados: \n");
+	  printf("\nDigite sua nota na Avaliação A1: \n");
+	  scanf("%f",&usuario1.nota1);
+	  printf("\nDigite sua nota na Avaliação A2: \n");
+	  scanf("%f",&usuario1.nota2);
+	  printf("\nNota A1 é : %2.1f\n",usuario1.nota1);
+	  printf("\nNota A2 é : %2.1f\n",usuario1.nota2);
+	
+		usuario1.media = (usuario1.nota1 + usuario1.nota2)/2;
+		
+	  printf("Sua média foi de %2.1f\n",usuario1.media);
+	  if(usuario1.media < 6){
+	  	printf("\nREPROVADO SEU MERDA\n");
+	  }else{
+	  	printf("\nAPROVADO, VOCE É DEMAIS\n");
+	  }
 }
-
-
